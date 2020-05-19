@@ -8,12 +8,7 @@
 
 import UIKit
 
-// custom nav controller for status bar
-class CustomNavigationController: UINavigationController {
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-}
+
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
