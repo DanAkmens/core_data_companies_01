@@ -11,6 +11,7 @@ import UIKit
 
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
 
     var window: UIWindow?
 
@@ -22,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
-        let companiesController = ViewController()
+        let companiesController = CompaniesController()
         
         // responsible for top Nav area
         let navController = CustomNavigationController(rootViewController: companiesController)

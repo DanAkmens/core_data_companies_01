@@ -10,11 +10,21 @@ import UIKit
 
 class CompaniesController: UITableViewController {
     
-    let companies = [
+    var companies = [
         Company(name: "Apple", founded: Date()),
         Company(name: "Google", founded: Date()),
         Company(name: "Facebook", founded: Date())
     ]
+    
+    // method that ading company to the list
+    func addCompany(company: Company) {
+        
+        // 1. - modify your array
+        companies.append(company)
+        // 2. - insert a new index path into tableView
+        let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +73,18 @@ class CompaniesController: UITableViewController {
     
     // function responsible for right button action
     @objc func handleAddCompany() {
-        print("Adding company...")
+        
+        let createCompanyController = CreateCompanyController()
+        // createCompanyController.view.backgroundColor = .green
+       
+        // Custom Nav Controller - for white status bar
+        let navController = CustomNavigationController(rootViewController: createCompanyController)
+        
+        createCompanyController.companiesController = self
+        
+        navController.modalTransitionStyle = .flipHorizontal
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true, completion: nil)
     }
     
     // responsible for header, under nav controller
@@ -78,20 +99,5 @@ class CompaniesController: UITableViewController {
         return 50
     }
     
-    func setupNavBarStyleTitleColorAndNavBarColor() {
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.prefersLargeTitles = true
-        // new from iOS 13, in order to set up large Tilte for nav bar and color
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithOpaqueBackground()
-        
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.backgroundColor = .lightRed
-        
-        self.navigationController?.navigationBar.standardAppearance = navBarAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-    }
-
 }
 
