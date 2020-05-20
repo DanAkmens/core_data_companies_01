@@ -8,7 +8,16 @@
 
 import UIKit
 
-class CompaniesController: UITableViewController {
+class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
+    
+    func didAddCompany(company: Company) {
+        // 1. - modify your array
+        companies.append(company)
+        // 2. - insert a new index path into tableView
+        let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
     
     var companies = [
         Company(name: "Apple", founded: Date()),
@@ -18,12 +27,12 @@ class CompaniesController: UITableViewController {
     
     // method that ading company to the list
     func addCompany(company: Company) {
-        
-        // 1. - modify your array
-        companies.append(company)
-        // 2. - insert a new index path into tableView
-        let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
+//
+//        // 1. - modify your array
+//        companies.append(company)
+//        // 2. - insert a new index path into tableView
+//        let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
+//        tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
 
     override func viewDidLoad() {
@@ -80,7 +89,7 @@ class CompaniesController: UITableViewController {
         // Custom Nav Controller - for white status bar
         let navController = CustomNavigationController(rootViewController: createCompanyController)
         
-        createCompanyController.companiesController = self
+        createCompanyController.delegate = self
         
         navController.modalTransitionStyle = .flipHorizontal
         navController.modalPresentationStyle = .fullScreen

@@ -32,14 +32,15 @@ extension UIViewController {
 }
 
 // Custom Delegation
-
 protocol CreateCompanyControllerDelegate {
     func didAddCompany(company: Company)
 }
 
 class CreateCompanyController: UIViewController {
     
-    var companiesController: CompaniesController?
+    var delegate: CreateCompanyControllerDelegate?
+    
+    // var companiesController: CompaniesController?
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -82,7 +83,7 @@ class CreateCompanyController: UIViewController {
                    
             let company = Company(name: text, founded: Date())
                    
-            self.companiesController?.addCompany(company: company)
+            self.delegate?.didAddCompany(company: company)
         }
         
     }
